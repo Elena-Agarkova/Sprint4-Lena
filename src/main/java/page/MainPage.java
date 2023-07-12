@@ -5,10 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
 import java.time.Duration;
-import java.util.ArrayList;
-import java.util.List;
 
 public class MainPage {
     private WebDriver driver;
@@ -20,38 +17,33 @@ public class MainPage {
         this.driver = driver;
     }
 
-    private final By ACCORDION = By.className("accordion");
-    private final By ACCORDION_BUTTON = By.className("accordion__button");
-    private final By ACCORDION_TEXT = By.cssSelector(".accordion__heading p");
-    private final By ORDER_BUTTON_HEADER = By.xpath(".//div[contains(@class, 'Header_Nav')]/button[contains(@class, 'Button_Button')]");
-    private final By ORDER_BUTTON_BOTTOM = By.xpath(".//div[contains(@class, 'Home_FinishButton')]/button[contains(@class, 'Button_Button')]");
+    private final By accordion = By.className("accordion");
+    private final By accordionButton = By.className("accordion__button");
+    private final By accordionText = By.cssSelector(".accordion__panel p");
+    private final By orderButtonHeader = By.xpath(".//div[contains(@class, 'Header_Nav')]/button[contains(@class, 'Button_Button')]");
+    private final By orderButtonBottom = By.xpath(".//div[contains(@class, 'Home_FinishButton')]/button[contains(@class, 'Button_Button')]");
 
     public void waitForLoadAccordion() {
         new WebDriverWait(driver, Duration.ofSeconds(5))
-                .until(ExpectedConditions.visibilityOfElementLocated(ACCORDION));
+                .until(ExpectedConditions.visibilityOfElementLocated(accordion));
     }
 
-    public void clickAccordionElements() {
-        List<WebElement> accordionButtonsElement = driver.findElements(ACCORDION_BUTTON);
-        accordionButtonsElement.forEach(button -> {
-            ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();", button);
-            button.click();
-        });
-    }
+    public void clickAccordionElements(int element) {
+            ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();", driver.findElements(accordionButton).get(element));
+            driver.findElements(accordionButton).get(element).click();
+        }
 
-    public List<String> getTextsFromAccordion() {
-        List<String> accordionTexts = new ArrayList<>();
-        driver.findElements(ACCORDION_TEXT).forEach(text -> accordionTexts.add(text.getText()));
-        System.out.println(accordionTexts);
-        return accordionTexts;
+
+    public String getTextFromAccordion(int element) {
+        return driver.findElements(accordionText).get(element).getText();
     }
 
     public By getOrderButtonHeader() {
-        return ORDER_BUTTON_HEADER;
+        return orderButtonHeader;
     }
 
     public By getOrderButtonBottom() {
-        return ORDER_BUTTON_BOTTOM;
+        return orderButtonBottom;
     }
 
     public void clickOrderButton(By locator) {
