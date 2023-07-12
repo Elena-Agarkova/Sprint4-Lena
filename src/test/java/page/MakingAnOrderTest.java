@@ -67,7 +67,7 @@ public class MakingAnOrderTest {
 
         MakingAnOrder makingAnOrder = new MakingAnOrder(driver);
         makingAnOrder.waitForLoadOrderPage();
-        makingAnOrder.sendTheFirstForm(driver, name, surname, address, station, phoneNumber);
+        makingAnOrder.sendTheFirstForm(name, surname, address, station, phoneNumber);
         makingAnOrder.clickNextButton();
 
         makingAnOrder.sendTheSecondForm(comment);

@@ -16,16 +16,28 @@ public class MainPageAccordionTest {
 
     private WebDriver driver;
     private final String browserName;
+    private final int element;
+    private final String text;
 
-    public MainPageAccordionTest(String browserName) {
+    public MainPageAccordionTest(String browserName,int element, String text) {
         this.browserName = browserName;
+        this.element = element;
+        this.text = text;
     }
 
-    @Parameterized.Parameters
+    @Parameterized.Parameters()
     public static Object[][] getData() {
         return new Object[][]{
                 {"Chrome"},
                 {"Firefox"},
+                {"Сутки — 400 рублей. Оплата курьеру — наличными или картой."},
+                {"Пока что у нас так: один заказ — один самокат. Если хотите покататься с друзьями, можете просто сделать несколько заказов — один за другим."},
+                {"Допустим, вы оформляете заказ на 8 мая. Мы привозим самокат 8 мая в течение дня. Отсчёт времени аренды начинается с момента, когда вы оплатите заказ курьеру. Если мы привезли самокат 8 мая в 20:30, суточная аренда закончится 9 мая в 20:30."},
+                {"Только начиная с завтрашнего дня. Но скоро станем расторопнее."},
+                {"Пока что нет! Но если что-то срочное — всегда можно позвонить в поддержку по красивому номеру 1010."},
+                {"Самокат приезжает к вам с полной зарядкой. Этого хватает на восемь суток — даже если будете кататься без передышек и во сне. Зарядка не понадобится."},
+                {"Да, пока самокат не привезли. Штрафа не будет, объяснительной записки тоже не попросим. Все же свои."},
+                {"Да, обязательно. Всем самокатов! И Москве, и Московской области."},
         };
     }
 
@@ -47,9 +59,9 @@ public class MainPageAccordionTest {
     public void checkAccordionTextAfterClickExists() {
         MainPage mainPage = new MainPage(driver);
         mainPage.waitForLoadAccordion();
-        mainPage.clickAccordionElements();
+        mainPage.clickAccordionElements(element - 1);
 
-        assertThat("Элемент выпадающего списка пустой", mainPage.getTextsFromAccordion(), everyItem(not(containsString(""))));
+        assertThat("Элемент выпадающего списка не соответствует тексту", mainPage.getTextFromAccordion(element - 1), containsString(text));
     }
 
     @After
