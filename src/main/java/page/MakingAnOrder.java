@@ -63,7 +63,8 @@ public class MakingAnOrder {
         return driver.findElement(inputMetroStation);
     }
 
-    public WebElement getTitleOrder() {
+    public WebElement getTitleOrder()
+    {
         return driver.findElement(orderPageHeader);
     }
 

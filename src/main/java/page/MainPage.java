@@ -1,22 +1,22 @@
 package page;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
 import java.time.Duration;
 
 public class MainPage {
     private WebDriver driver;
-
     public MainPage() {
     }
-
     public MainPage(WebDriver driver) {
-        this.driver = driver;
-    }
 
+       this.driver = driver;
+}
     private final By accordion = By.className("accordion");
     private final By accordionButton = By.className("accordion__button");
     private final By accordionText = By.cssSelector(".accordion__panel p");
@@ -29,8 +29,8 @@ public class MainPage {
     }
 
     public void clickAccordionElements(int element) {
-            ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();", driver.findElements(accordionButton).get(element));
-            driver.findElements(accordionButton).get(element).click();
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();", driver.findElements(accordionButton).get(element));
+        driver.findElements(accordionButton).get(element).click();
         }
 
 
